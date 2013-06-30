@@ -1,4 +1,4 @@
-expirymanager
+ExpiryManager
 =============
 
-An object for efficiently managing key expiries for in-memory databases
+An object for efficiently managing key expiries for in-memory databases.
