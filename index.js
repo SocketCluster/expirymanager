@@ -4,9 +4,10 @@ var ExpiryManager = module.exports.ExpiryManager = function () {
 };
 
 ExpiryManager.prototype._isEmpty = function (obj) {
-  var i;
-  for (i in obj) {
-    return false;
+  for (var i in obj) {
+    if (obj.hasOwnProperty(i)) {
+      return false;
+    }
   }
   return true;
 };
@@ -34,8 +35,9 @@ ExpiryManager.prototype.now = function () {
 ExpiryManager.prototype.expire = function (keys, seconds) {
   this.unexpire(keys);
   var expiry = this.now() + seconds;
+  var len = keys.length;
   var key;
-  for (var i in keys) {
+  for (var i = 0; i < len; i++) {
     key = this._simplifyKey(keys[i]);
     this._keys[key] = expiry;
     if (this._expiries[expiry] == null) {
@@ -46,8 +48,9 @@ ExpiryManager.prototype.expire = function (keys, seconds) {
 };
 
 ExpiryManager.prototype.unexpire = function (keys) {
+  var len = keys.length;
   var expiry, key;
-  for (var i in keys) {
+  for (var i = 0; i < len; i++) {
     key = this._simplifyKey(keys[i]);
     expiry = this._keys[key];
     delete this._keys[key];
@@ -69,7 +72,9 @@ ExpiryManager.prototype.getKeysByExpiry = function (expiry) {
   var keys = [];
   var keyMap = this._expiries[expiry];
   for (var i in keyMap) {
-    keys.push(this._expandKey(i));
+    if (keyMap.hasOwnProperty(i)) {
+      keys.push(this._expandKey(i));
+    }
   }
   return keys;
 };
@@ -77,14 +82,19 @@ ExpiryManager.prototype.getKeysByExpiry = function (expiry) {
 ExpiryManager.prototype.getExpiredKeys = function (time) {
   var expiredKeys = [];
   var now = time || this.now();
-  var i, j;
-  for (i in this._expiries) {
-    if (i <= now) {
-      for (j in this._expiries[i]) {
-        expiredKeys.push(this._expandKey(j));
+  var expiries = this._expiries;
+  
+  for (var i in expiries) {
+    if (expiries.hasOwnProperty(i)) {
+      if (i <= now) {
+        for (var j in expiries[i]) {
+          if (expiries[i].hasOwnProperty(j)) {
+            expiredKeys.push(this._expandKey(j));
+          }
+        }
+      } else {
+        break;
       }
-    } else {
-      break;
     }
   }
   return expiredKeys;
