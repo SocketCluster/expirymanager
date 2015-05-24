@@ -23,7 +23,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/topcloud/expirymanager.git"
+    "url": "git://github.com/SocketCluster/expirymanager.git"
   },
   "engines": {
     "node": ">= 0.8.0"
@@ -31,9 +31,9 @@
   "readme": "ExpiryManager\r\n=============\r\n\r\nAn object for efficiently managing key expiries for in-memory databases.\r\n",
   "readmeFilename": "README.md",
   "bugs": {
-    "url": "https://github.com/topcloud/expirymanager/issues"
+    "url": "https://github.com/SocketCluster/expirymanager/issues"
   },
-  "homepage": "https://github.com/topcloud/expirymanager",
+  "homepage": "https://github.com/SocketCluster/expirymanager",
   "_id": "expirymanager@0.9.1",
   "_from": "expirymanager@>= 0.9.1"
 }
